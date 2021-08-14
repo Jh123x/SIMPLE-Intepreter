@@ -1,0 +1,8 @@
+procedure main {
+    printtest = 1;
+    testprint = 0;
+    print printtest;
+    print testprint;
+}
+
+call main;

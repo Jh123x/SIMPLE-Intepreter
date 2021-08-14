@@ -1,0 +1,10 @@
+procedure main {
+    call test;
+    print b;
+}
+
+procedure test {
+    b = 20;
+}
+
+call main;

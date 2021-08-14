@@ -13,6 +13,7 @@ pg = ParserGenerator(
         ('left', ['EQUALS', 'NOT_EQUALS', 'GREATER_EQUAL','GREATER', 'LESS', 'LESS_EQUAL',]), 
         ('left', ['PLUS', 'MINUS',]), 
         ('left', ['MUL', 'DIV',]),
+        ('left', ['NAME'])
     ])
 
 @pg.production('statements : statement statements')
@@ -56,6 +57,9 @@ def while_condition(p):
 def expression_parens(p):
     return p[1]
 
+@pg.production('conditional : LPAREN conditional RPAREN')
+def conditional_parens(p):
+    return p[1]
 
 @pg.production('expression : expression PLUS expression')
 @pg.production('expression : expression MINUS expression')
@@ -109,6 +113,6 @@ def reading(p):
 # Error handling
 @pg.error
 def error(token):
-    raise ValueError(f"Token {token} is unexpected on line")
+    raise ValueError(f"Token `{token.value}` is unexpected on line {token.source_pos.lineno} column {token.source_pos.colno + 1}")
 
 parser = pg.build()

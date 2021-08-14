@@ -1,0 +1,10 @@
+procedure main {
+    call get;
+    print x; 
+    print y;
+}
+
+procedure get {
+    read x;
+    read y;
+}

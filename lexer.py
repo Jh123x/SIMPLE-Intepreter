@@ -2,10 +2,6 @@ from rply import LexerGenerator
 
 lg = LexerGenerator()
 lg.ignore(r"\s+")
-lg.add("IF", r"if")
-lg.add("WHILE", r"while")
-lg.add("ELSE", r"else")
-lg.add("PRINT", r'print')
 lg.add("LPAREN", r"\(")
 lg.add("RPAREN", r"\)")
 lg.add("LBRACE", r"\{")
@@ -22,20 +18,26 @@ lg.add("OR", r"\|\|")
 lg.add("AND", r"&&")
 lg.add("NOT", "!")
 
-
 lg.add("EQUAL", r"=")
 lg.add("SEMICOLON", r';')
 lg.add("NUMBER", r"\d+")
-lg.add("PROCEDURE", r"procedure")
-lg.add("CALL", r"call")
-lg.add("READ", r"read")
 lg.add("PLUS", r"\+")
 lg.add("MINUS", r"-")
 lg.add("DIV", r"/")
 lg.add("MUL", r"\*")
 lg.add("MOD", r"%")
+
+# Words
 lg.add("THEN", r'then')
-lg.add("NAME", r"[A-Za-z_][a-zA-Z0-9_]*")
+lg.add("PROCEDURE", r"procedure")
+lg.add("CALL", r"call")
+lg.add("READ", r"read")
+lg.add("IF", r"if")
+lg.add("WHILE", r"while")
+lg.add("ELSE", r"else")
+lg.add("PRINT", r'print')
+lg.add("NAME", r"[A-Za-z_][A-Za-z0-9_]*")
+
 
 
 lexer = lg.build()
