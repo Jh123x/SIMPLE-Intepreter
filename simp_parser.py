@@ -1,0 +1,52 @@
+from rply import ParserGenerator
+import ast
+from lexer import lexer
+
+pg = ParserGenerator(list(map(lambda x: x.name, lexer.rules)), precedence=[('left', ['PLUS', 'MINUS']), ('left', ['MUL', 'DIV'])])
+
+@pg.production('main : statement')
+def main(p):
+    return p[0]
+
+@pg.production('statement : statement SEMICOLON')
+def statement(s):
+    return s[0]
+
+@pg.production('expression : NUMBER')
+def expression_number(p):
+    return ast.Number(int(p[0].getstr()))
+
+@pg.production('expression : LPAREN expression RPAREN')
+def expression_parens(p):
+    return p[1]
+
+@pg.production('expression : expression PLUS expression')
+@pg.production('expression : expression MINUS expression')
+@pg.production('expression : expression MUL expression')
+@pg.production('expression : expression DIV expression')
+def expression_binop(p):
+    left = p[0]
+    right = p[2]
+    d = {
+        "PLUS": ast.Add,
+        "MINUS": ast.Sub,
+        "DIV": ast.Div,
+        "MUL": ast.Mul,
+    }
+
+    op = p[1].name
+    res =  d.get(op, None)
+    if res is None:
+        raise AssertionError(f"Invalid binary operator {op}")
+    return res(left, right)
+
+@pg.production("statement : PRINT expression")
+def printing(p):
+    return ast.Print(p[1])
+
+@pg.error
+def error(token):
+    raise ValueError(f"Token {token} is unexpected")
+
+
+parser = pg.build()
