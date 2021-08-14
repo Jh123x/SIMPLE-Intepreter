@@ -1,7 +1,7 @@
 from rply import LexerGenerator
 
 lg = LexerGenerator()
-lg.ignore(r"\s")
+lg.ignore(r"\s+")
 
 # Symbols
 lg.add("LPAREN", r"\(")

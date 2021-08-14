@@ -13,7 +13,6 @@ pg = ParserGenerator(
         ('left', ['EQUALS', 'NOT_EQUALS', 'GREATER_EQUAL','GREATER', 'LESS', 'LESS_EQUAL',]), 
         ('left', ['PLUS', 'MINUS',]), 
         ('left', ['MUL', 'DIV',]),
-        ('left', ['PRINT']),
         ('left', ['NAME']),
         
     ])
@@ -83,13 +82,13 @@ def expression_binop(p):
         raise AssertionError(f"Invalid binary operator {op}")
     return res(left, right)
 
+@pg.production("expression : NAME")
+def name(p):
+    return ast.NameEval(p[0].getstr())
+
 @pg.production("statement : PRINT expression SEMICOLON")
 def printing(p):
     return ast.Print(p[1])
-
-@pg.production("statement : PRINT NAME SEMICOLON")
-def printing(p):
-    return ast.Print(ast.Name(p[1].getstr()))
 
 @pg.production("statement : READ NAME SEMICOLON")
 def reading(p):
