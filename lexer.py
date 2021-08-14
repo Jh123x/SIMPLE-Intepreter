@@ -10,7 +10,6 @@ lg.add("LPAREN", r"\(")
 lg.add("RPAREN", r"\)")
 lg.add("LBRACE", r"\{")
 lg.add("RBRACE", r"\}")
-lg.add("EQUAL", r"=")
 
 # Bools
 lg.add("GREATER", r">")
@@ -24,6 +23,7 @@ lg.add("AND", r"&&")
 lg.add("NOT", "!")
 
 
+lg.add("EQUAL", r"=")
 lg.add("SEMICOLON", r';')
 lg.add("NUMBER", r"\d+")
 lg.add("PROCEDURE", r"procedure")

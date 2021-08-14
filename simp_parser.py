@@ -6,12 +6,11 @@ pg = ParserGenerator(
     list(map(lambda x: x.name, lexer.rules)),
     precedence=[ 
         ('left', ['PROCEDURE',]), 
-        ('left', ['EQUAL']), 
-        ('left', ['[',']',',']), 
+        ('left', ['EQUAL']),  
         ('left', ['IF', 'COLON', 'ELSE', 'END', 'NEWLINE','WHILE',]), 
         ('left', ['AND', 'OR',]), 
         ('left', ['NOT',]), 
-        ('left', ['==', '!=', '>=','>', '<', '<=',]), 
+        ('left', ['EQUALS', 'NOT_EQUALS', 'GREATER_EQUAL','GREATER', 'LESS', 'LESS_EQUAL',]), 
         ('left', ['PLUS', 'MINUS',]), 
         ('left', ['MUL', 'DIV',]),
     ])
