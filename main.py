@@ -3,6 +3,12 @@ from lexer import lexer
 from simp_parser import parser as simpleparser
 from interpreter import Interpreter
 
+def tokenizer(filename):
+    with open(filename) as file:
+        data = file.read()
+    tokens = lexer.lex(data)
+    return [i for i in tokens]
+
 
 def run(filename: str):
     with open(filename) as file:

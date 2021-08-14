@@ -5,15 +5,17 @@ from lexer import lexer
 pg = ParserGenerator(
     list(map(lambda x: x.name, lexer.rules)),
     precedence=[ 
-        ('left', ['PROCEDURE',]), 
+        ('left', ['PROCEDURE']), 
         ('left', ['EQUAL']),  
         ('left', ['IF', 'COLON', 'ELSE', 'END', 'NEWLINE','WHILE',]), 
         ('left', ['AND', 'OR',]), 
-        ('left', ['NOT',]), 
+        ('left', ['NOT']), 
         ('left', ['EQUALS', 'NOT_EQUALS', 'GREATER_EQUAL','GREATER', 'LESS', 'LESS_EQUAL',]), 
         ('left', ['PLUS', 'MINUS',]), 
         ('left', ['MUL', 'DIV',]),
-        ('left', ['NAME'])
+        ('left', ['PRINT']),
+        ('left', ['NAME']),
+        
     ])
 
 @pg.production('statements : statement statements')
@@ -54,12 +56,10 @@ def while_condition(p):
     return ast.While(p[2], p[5])
 
 @pg.production('expression : LPAREN expression RPAREN')
+@pg.production('conditional : LPAREN conditional RPAREN')
 def expression_parens(p):
     return p[1]
 
-@pg.production('conditional : LPAREN conditional RPAREN')
-def conditional_parens(p):
-    return p[1]
 
 @pg.production('expression : expression PLUS expression')
 @pg.production('expression : expression MINUS expression')
@@ -87,13 +87,14 @@ def expression_binop(p):
 def printing(p):
     return ast.Print(p[1])
 
+@pg.production("statement : PRINT NAME SEMICOLON")
+def printing(p):
+    return ast.Print(ast.Name(p[1].getstr()))
+
 @pg.production("statement : READ NAME SEMICOLON")
 def reading(p):
     return ast.Read(ast.Name(p[1].getstr()))
 
-@pg.production("expression : NAME")
-def name_eval(p):
-    return ast.NameEval(p[0].getstr())
 
 @pg.production("statement : NAME EQUAL expression SEMICOLON")
 def assign(p):
@@ -113,6 +114,6 @@ def reading(p):
 # Error handling
 @pg.error
 def error(token):
-    raise ValueError(f"Token `{token.value}` is unexpected on line {token.source_pos.lineno} column {token.source_pos.colno + 1}")
+    raise ValueError(f"Token `{token.value}` is unexpected on line {token.source_pos.lineno} column {token.source_pos.colno}")
 
 parser = pg.build()
