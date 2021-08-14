@@ -8,3 +8,5 @@ procedure get {
     read x;
     read y;
 }
+
+call main;

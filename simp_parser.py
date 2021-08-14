@@ -13,6 +13,7 @@ pg = ParserGenerator(
         ('left', ['EQUALS', 'NOT_EQUALS', 'GREATER_EQUAL','GREATER', 'LESS', 'LESS_EQUAL',]), 
         ('left', ['PLUS', 'MINUS',]), 
         ('left', ['MUL', 'DIV',]),
+        ('left', ['PRINT']),
         ('left', ['NAME']),
         
     ])
