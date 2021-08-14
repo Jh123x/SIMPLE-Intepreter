@@ -5,7 +5,8 @@ Completed in [python](https://www.python.org/)
 
 # Quick start
 1. Clone the repository using `git clone https://github.com/Jh123x/SIMPLE-Intepreter.git`
-1. Run `__main__.py` using `python __main__.py [filepath]` to run the Simple Language
+1. Run `python main.py [filepath]` to run the Simple Language Intepreter
+    - Filepath refers to the path to the file containing the `simple language`
 
 
 # Tech Stack
