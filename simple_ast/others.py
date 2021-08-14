@@ -12,6 +12,11 @@ class Statements(BaseBox):
         for s in self.statements:
             s.eval(context)
 
+    def __add__(self, other):
+        if not isinstance(other, Statements):
+            raise ValueError("Cannot add Statements to other types")
+        return Statements(self.statements + other.statements)
+
 
 class Procedure(BaseBox):
     def __init__(self, name, statements):
