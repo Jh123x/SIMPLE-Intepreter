@@ -26,10 +26,6 @@ def statement(p):
 def expression_number(p):
     return ast.Number(int(p[0].getstr()))
 
-@pg.production('expression : NAME')
-def expression_name(p):
-    return ast.Name(p[0].getstr())
-
 @pg.production('expression : LPAREN expression RPAREN')
 def expression_parens(p):
     return p[1]
@@ -62,7 +58,7 @@ def printing(p):
 
 @pg.production("statement : NAME EQUAL expression SEMICOLON")
 def assign(p):
-    return ast.Assign(p[0], p[2])
+    return ast.Assign(ast.Name(p[0].getstr()), p[2])
 
 @pg.error
 def error(token):

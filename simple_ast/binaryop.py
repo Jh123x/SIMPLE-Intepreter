@@ -28,4 +28,4 @@ class Mod(BinaryOp):
 
 class Assign(BinaryOp):
     def eval(self, context):
-        context.vars[self.left.getstr()] = self.right.eval(context)
+        context.vars[self.left.eval(context)] = self.right.eval(context)
