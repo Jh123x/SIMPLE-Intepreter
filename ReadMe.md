@@ -22,3 +22,4 @@ Completed in [python](https://www.python.org/)
 1. Bug fixes (If there are any bugs please let me know)
 1. Code clean up (Spaghetti code currently)
 1. Add proper unit tests
+1. Compile to bytecode? (In the farrr future when i learn asm for some reason)
