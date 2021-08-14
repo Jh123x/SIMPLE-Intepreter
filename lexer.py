@@ -11,10 +11,19 @@ lg.add("RPAREN", r"\)")
 lg.add("LBRACE", r"\{")
 lg.add("RBRACE", r"\}")
 lg.add("EQUAL", r"=")
-lg.add("GREATER_EQUAL", r">=")
+
+# Bools
 lg.add("GREATER", r">")
 lg.add("LESS", r"<")
+lg.add("GREATER_EQUAL", r">=")
 lg.add("LESS_EQUAL", r">=")
+lg.add("EQUALS", r"==")
+lg.add("NOT_EQUALS", r"!=")
+lg.add("OR", r"\|\|")
+lg.add("AND", r"&&")
+lg.add("NOT", "!")
+
+
 lg.add("SEMICOLON", r';')
 lg.add("NUMBER", r"\d+")
 lg.add("PROCEDURE", r"procedure")
@@ -25,8 +34,8 @@ lg.add("MINUS", r"-")
 lg.add("DIV", r"/")
 lg.add("MUL", r"\*")
 lg.add("MOD", r"%")
-lg.add('NEWLINE', '\n')
+lg.add("THEN", r'then')
 lg.add("NAME", r"[A-Za-z_][a-zA-Z0-9_]*")
-lg.add("NEWLINE", "\n")
+
 
 lexer = lg.build()

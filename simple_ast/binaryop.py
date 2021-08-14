@@ -20,7 +20,7 @@ class Mul(BinaryOp):
 
 class Div(BinaryOp):
     def eval(self, context):
-        return self.left.eval(context) / self.right.eval(context)
+        return int(self.left.eval(context) / self.right.eval(context))
 
 class Mod(BinaryOp):
     def eval(self, context):

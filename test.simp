@@ -1,13 +1,18 @@
-procedure main {
-    read a;
-    read b;
+procedure sumDigits {
+    read number;
+    sum = 0;
+   
+    while (number > 0) {
+        digit = number % 10;
+        sum = sum + digit;
+        number = number / 10;
+    }
 
-    call test;
+    print sum;
 }
 
-procedure test {
-    print a;
-    print b;
+procedure main {
+    call sumDigits;
 }
 
 call main;

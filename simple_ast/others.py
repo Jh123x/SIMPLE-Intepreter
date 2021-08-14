@@ -23,9 +23,6 @@ class Procedure(BaseBox):
         self.name = name
         self.statements = statements
 
-    def getastlist(self):
-        return self.statements
-
     def eval(self, context):
         context.funcs[self.name.eval(context)] = self.statements
 
