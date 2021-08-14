@@ -1,5 +1,5 @@
 from rply import ParserGenerator
-import ast
+import simple_ast as ast
 from lexer import lexer
 
 pg = ParserGenerator(
@@ -16,13 +16,19 @@ pg = ParserGenerator(
         ('left', ['MUL', 'DIV',]),
     ])
 
-@pg.production('statement : expression')
-def statement_expr(state, p):
+
+@pg.production('statements : statement')
+@pg.production('statement : expression SEMICOLON')
+def statement(p):
     return p[0]
 
 @pg.production('expression : NUMBER')
 def expression_number(p):
     return ast.Number(int(p[0].getstr()))
+
+@pg.production('expression : NAME')
+def expression_name(p):
+    return ast.Name(p[0].getstr())
 
 @pg.production('expression : LPAREN expression RPAREN')
 def expression_parens(p):
@@ -50,17 +56,16 @@ def expression_binop(p):
         raise AssertionError(f"Invalid binary operator {op}")
     return res(left, right)
 
-@pg.production("statement : PRINT expression")
+@pg.production("statement : PRINT expression SEMICOLON")
 def printing(p):
     return ast.Print(p[1])
 
-@pg.production("statement : NAME EQUAL expression")
+@pg.production("statement : NAME EQUAL expression SEMICOLON")
 def assign(p):
     return ast.Assign(p[0], p[2])
 
 @pg.error
 def error(token):
     raise ValueError(f"Token {token} is unexpected")
-
 
 parser = pg.build()

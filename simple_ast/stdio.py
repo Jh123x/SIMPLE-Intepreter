@@ -12,4 +12,4 @@ class Read(BaseBox):
         self.value = value
     
     def eval(self, context):
-        context.var[self.value] = input()
+        context.var[self.value.eval(context)] = input()

@@ -27,5 +27,6 @@ lg.add("MUL", r"\*")
 lg.add("MOD", r"%")
 lg.add('NEWLINE', '\n')
 lg.add("NAME", r"[A-Za-z_][a-zA-Z0-9_]*")
+lg.add("NEWLINE", "\n")
 
 lexer = lg.build()
