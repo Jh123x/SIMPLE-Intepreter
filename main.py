@@ -9,4 +9,5 @@ with open(source) as file:
     data = file.read()
 tokens = lexer.lex(data)
 results = parser.parse(tokens)
-results.eval()
+intepreter = Interpreter(results)
+intepreter.interpret()

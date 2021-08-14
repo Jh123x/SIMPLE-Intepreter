@@ -2,15 +2,23 @@ from rply import ParserGenerator
 import ast
 from lexer import lexer
 
-pg = ParserGenerator(list(map(lambda x: x.name, lexer.rules)), precedence=[('left', ['PLUS', 'MINUS']), ('left', ['MUL', 'DIV'])])
+pg = ParserGenerator(
+    list(map(lambda x: x.name, lexer.rules)),
+    precedence=[ 
+        ('left', ['PROCEDURE',]), 
+        ('left', ['=']), 
+        ('left', ['[',']',',']), 
+        ('left', ['IF', 'COLON', 'ELSE', 'END', 'NEWLINE','WHILE',]), 
+        ('left', ['AND', 'OR',]), 
+        ('left', ['NOT',]), 
+        ('left', ['==', '!=', '>=','>', '<', '<=',]), 
+        ('left', ['PLUS', 'MINUS',]), 
+        ('left', ['MUL', 'DIV',]),
+    ])
 
-@pg.production('main : statement')
-def main(p):
+@pg.production('statement : expression')
+def statement_expr(state, p):
     return p[0]
-
-@pg.production('statement : statement SEMICOLON')
-def statement(s):
-    return s[0]
 
 @pg.production('expression : NUMBER')
 def expression_number(p):
@@ -24,6 +32,7 @@ def expression_parens(p):
 @pg.production('expression : expression MINUS expression')
 @pg.production('expression : expression MUL expression')
 @pg.production('expression : expression DIV expression')
+@pg.production('expression : expression MOD expression')
 def expression_binop(p):
     left = p[0]
     right = p[2]
@@ -32,6 +41,7 @@ def expression_binop(p):
         "MINUS": ast.Sub,
         "DIV": ast.Div,
         "MUL": ast.Mul,
+        "MOD": ast.Mod,
     }
 
     op = p[1].name
@@ -43,6 +53,10 @@ def expression_binop(p):
 @pg.production("statement : PRINT expression")
 def printing(p):
     return ast.Print(p[1])
+
+@pg.production("statement : NAME EQUAL expression")
+def assign(p):
+    return ast.Assign(p[0], p[2])
 
 @pg.error
 def error(token):
