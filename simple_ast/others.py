@@ -3,6 +3,10 @@ from . import BaseBox
 
 class Statements(BaseBox):
     def __init__(self, statements):
+        """
+        The AST for statements
+        Each `statements` contains 1 or more `statement`s to be executed
+        """
         self.statements = statements
 
     def get_list(self):
