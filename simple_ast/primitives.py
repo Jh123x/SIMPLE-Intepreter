@@ -15,3 +15,14 @@ class Name(BaseBox):
     
     def eval(self, context):
         return self.value
+
+
+class NameEval(BaseBox):
+    def __init__(self, value) -> None:
+        self.value = value
+    
+    def eval(self, context):
+        val = context.vars.get(self.value, None)
+        if val is None:
+            raise ValueError("Variable referenced before assignment")
+        return val

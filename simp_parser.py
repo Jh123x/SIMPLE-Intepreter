@@ -18,7 +18,7 @@ pg = ParserGenerator(
 
 
 @pg.production('statements : statement')
-@pg.production('statement : expression SEMICOLON')
+@pg.production('statement : expression')
 def statement(p):
     return p[0]
 
@@ -55,6 +55,10 @@ def expression_binop(p):
 @pg.production("statement : PRINT expression SEMICOLON")
 def printing(p):
     return ast.Print(p[1])
+
+@pg.production("expression : NAME")
+def name_eval(p):
+    return ast.NameEval(ast.Name(p[0].getstr()))
 
 @pg.production("statement : NAME EQUAL expression SEMICOLON")
 def assign(p):
