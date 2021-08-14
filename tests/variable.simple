@@ -1,8 +1,8 @@
 procedure main {
-    tprintest = 1;
-    tes = 0;
-    print tprintest;
-    print tes;
+    printest = 1;
+    testprint = 0;
+    print printest;
+    print testprint;
 }
 
 call main;
