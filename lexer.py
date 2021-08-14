@@ -42,7 +42,8 @@ keywords = {
 }
 
 for k, v in keywords.items():
-    lg.add(k, f"{v}(?![a-zA-Z0-9_])")
+    # Ensure that the word is by itself and is not concatenated to anything else
+    lg.add(k, f"{v}(?![a-zA-Z0-9_])") 
 
 lg.ignore(r"\s+")
 lg.add("NAME", r"[A-Za-z][A-Za-z0-9]*")
