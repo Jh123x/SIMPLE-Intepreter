@@ -12,4 +12,5 @@ class Read(BaseBox):
         self.value = value
     
     def eval(self, context):
-        context.var[self.value.eval(context)] = input()
+        varname = self.value.eval(context)
+        context.vars[varname] = int(input())

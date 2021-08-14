@@ -27,7 +27,7 @@ class Procedure(BaseBox):
         return self.statements
 
     def eval(self, context):
-        context.func[self.name] = self.statements
+        context.funcs[self.name.eval(context)] = self.statements
 
 
 class Call(BaseBox):
@@ -35,4 +35,4 @@ class Call(BaseBox):
         self.name = name
 
     def eval(self, context):
-        context.funcs[self.name].eval()
+        context.funcs[self.name.eval(context)].eval(context)

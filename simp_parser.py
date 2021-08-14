@@ -59,6 +59,14 @@ def expression_binop(p):
 def printing(p):
     return ast.Print(p[1])
 
+@pg.production("statement : READ NAME SEMICOLON")
+def reading(p):
+    return ast.Read(ast.Name(p[1].getstr()))
+
+@pg.production("statement : CALL NAME SEMICOLON")
+def reading(p):
+    return ast.Call(ast.Name(p[1].getstr()))
+
 @pg.production("expression : NAME")
 def name_eval(p):
     return ast.NameEval(p[0].getstr())
@@ -67,8 +75,12 @@ def name_eval(p):
 def assign(p):
     return ast.Assign(ast.Name(p[0].getstr()), p[2])
 
+@pg.production("statement : PROCEDURE NAME LBRACE statements RBRACE")
+def procedure(p):
+    return ast.Procedure(ast.Name(p[1].getstr()), p[3])
+
 @pg.error
 def error(token):
-    raise ValueError(f"Token {token} is unexpected")
+    raise ValueError(f"Token {token} is unexpected on line")
 
 parser = pg.build()
