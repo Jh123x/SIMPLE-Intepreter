@@ -1,6 +1,6 @@
 from rply import ParserGenerator
 import simple_ast as ast
-from lexer import lexer
+from simple_lexer import lexer
 
 pg = ParserGenerator(
     list(map(lambda x: x.name, lexer.rules)),

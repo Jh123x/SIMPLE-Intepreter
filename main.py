@@ -1,7 +1,7 @@
 import argparse
-from lexer import lexer
-from simp_parser import parser as simpleparser
-from interpreter import Interpreter
+from simple_lexer import lexer
+from simple_parser import parser as simpleparser
+from simple_interpreter import Interpreter
 
 def readFile(filename):
     with open(filename) as file:
