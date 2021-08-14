@@ -21,3 +21,4 @@ Completed in [python](https://www.python.org/)
 # To do
 1. Bug fixes (If there are any bugs please let me know)
 1. Code clean up (Spaghetti code currently)
+1. Add proper unit tests
